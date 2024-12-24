@@ -7,7 +7,7 @@ pipeline{
         stage ('Compile Stage') {
 
             steps {
-
+				out.info(this,"SOME VERY USEFUL INFORMATION")
                 withMaven(maven: 'maven_3_5_0') {
                     sh 'mvn clean install'
 
