@@ -4,11 +4,19 @@ pipeline{
 
     stages {
 
+		stage('Build') {
+            steps {
+                sh "mvn --batch-mode -U deploy"
+                script {
+                    TAG_SELECTOR = readMavenPom().getVersion()
+                }
+                echo("TAG_SELECTOR=${TAG_SELECTOR}")
+            }
+        }
         stage ('Compile Stage') {
 
             steps {
-				out.info(this,"SOME VERY USEFUL INFORMATION")
-                withMaven(maven: 'maven_3_5_0') {
+				withMaven(maven: 'maven_3_5_0') {
                     sh 'mvn clean install'
 
                 }
